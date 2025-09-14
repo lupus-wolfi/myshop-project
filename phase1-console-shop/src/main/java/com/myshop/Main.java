@@ -2,18 +2,18 @@ package com.myshop;
 // Week 1-12: Test all modules in console
 // Create products, add to cart, make orders, simulate payment, generate reports
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+
+import com.myshop.console.Product;
+import java.math.BigDecimal;
+
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        Product laptop = new Product(1,"Laptop", new BigDecimal("199.99"), new BigDecimal("0.19"));
+        Product book = new Product(2, "Book", new BigDecimal("19.99"), new BigDecimal("0.19"));
+        Product book2 = new Product(3,"Book2", new BigDecimal("14.99"), new BigDecimal("0.19"));
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
-        }
+        System.out.println(laptop);
+        System.out.println(book);
+        System.out.println(book2);
     }
 }
