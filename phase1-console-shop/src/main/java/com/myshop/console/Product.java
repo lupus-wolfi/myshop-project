@@ -1,11 +1,12 @@
 package com.myshop.console;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public class Product {
 
     // Product attributes
-    private long id;
+    private Long id;
     private String name;
     private BigDecimal price;
     private BigDecimal taxRate;
@@ -13,8 +14,20 @@ public class Product {
     // Empty constructor for frameworks
     protected Product(){}
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Product product)) return false;
+        return id != null && id.equals(product.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
+
     // Private constructor used only by the Builder
-    private Product(long id, String name, BigDecimal price, BigDecimal taxRate) {
+    private Product(Long id, String name, BigDecimal price, BigDecimal taxRate) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -28,12 +41,12 @@ public class Product {
 
     // Static inner Builder class
     public static class Builder {
-        private long id;
+        private Long id;
         private String name;
         private BigDecimal price;
         private BigDecimal taxRate;
 
-        public Builder id(long id) {
+        public Builder id(Long id) {
             this.id = id;
             return this;
         }
@@ -59,7 +72,7 @@ public class Product {
     }
 
     // Getter methods
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -76,7 +89,7 @@ public class Product {
     }
 
     // Setter methods
-    public void setId(long id){
+    public void setId(Long id){
         this.id =id;
     }
     public void setName(String name){
