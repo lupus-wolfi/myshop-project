@@ -1,7 +1,6 @@
 package com.myshop.console;
 
 import java.math.BigDecimal;
-import java.util.Objects;
 
 public class Product {
 
