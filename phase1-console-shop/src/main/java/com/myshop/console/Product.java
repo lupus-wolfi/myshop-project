@@ -11,7 +11,8 @@ public class Product {
     private BigDecimal taxRate;
 
     // Empty constructor for frameworks
-    protected Product(){}
+    protected Product() {
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -88,16 +89,19 @@ public class Product {
     }
 
     // Setter methods
-    public void setId(Long id){
-        this.id =id;
+    public void setId(Long id) {
+        this.id = id;
     }
-    public void setName(String name){
+
+    public void setName(String name) {
         this.name = name;
     }
-    public void setPrice(BigDecimal price){
+
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
-    public void setTaxRate(BigDecimal taxRate){
+
+    public void setTaxRate(BigDecimal taxRate) {
         this.taxRate = taxRate;
     }
 
