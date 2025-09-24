@@ -4,29 +4,14 @@ import java.math.BigDecimal;
 
 public class Product {
 
-    // Product attributes
     private Long id;
     private String name;
     private BigDecimal price;
     private BigDecimal taxRate;
 
-    // Empty constructor for frameworks
     protected Product() {
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Product product)) return false;
-        return id != null && id.equals(product.getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return id != null ? id.hashCode() : 0;
-    }
-
-    // Private constructor used only by the Builder
     private Product(Long id, String name, BigDecimal price, BigDecimal taxRate) {
         this.id = id;
         this.name = name;
@@ -34,12 +19,10 @@ public class Product {
         this.taxRate = taxRate;
     }
 
-    // Factory method to initiate the Builder
     public static Builder builder() {
         return new Builder();
     }
 
-    // Static inner Builder class
     public static class Builder {
         private Long id;
         private String name;
@@ -67,11 +50,24 @@ public class Product {
         }
 
         public Product build() {
+            // VALIDIERUNGEN hier im Builder
+            if (id == null || id <= 0) {
+                throw new IllegalArgumentException("ID must be positive and not null");
+            }
+            if (name == null || name.trim().isEmpty()) {
+                throw new IllegalArgumentException("Name must not be empty");
+            }
+            if (price == null || price.compareTo(BigDecimal.ZERO) < 0) {
+                throw new IllegalArgumentException("Price must be zero or positive");
+            }
+            if (taxRate == null || taxRate.compareTo(BigDecimal.ZERO) < 0
+                    || taxRate.compareTo(BigDecimal.ONE) > 0) {
+                throw new IllegalArgumentException("Tax rate must be between 0 and 1");
+            }
             return new Product(id, name, price, taxRate);
         }
     }
 
-    // Getter methods
     public Long getId() {
         return id;
     }
@@ -88,7 +84,6 @@ public class Product {
         return taxRate;
     }
 
-    // Setter methods
     public void setId(Long id) {
         this.id = id;
     }
@@ -105,7 +100,18 @@ public class Product {
         this.taxRate = taxRate;
     }
 
-    // toString() method for text representation
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Product product)) return false;
+        return id != null && id.equals(product.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
