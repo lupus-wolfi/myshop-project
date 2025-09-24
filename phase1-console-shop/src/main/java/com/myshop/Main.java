@@ -11,7 +11,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         ProductService productService = new ProductService();
 
-        // Testprodukte hinzufügen
+        // Add some test products
         productService.addProduct(1L, "Test1", new BigDecimal("9.99"), new BigDecimal("0.19"));
         productService.addProduct(2L, "Test2", new BigDecimal("19.99"), new BigDecimal("0.19"));
         productService.addProduct(3L, "Test3", new BigDecimal("29.99"), new BigDecimal("0.19"));
@@ -19,20 +19,24 @@ public class Main {
         boolean whileRunning = true;
 
         while (whileRunning) {
+            // Print product list
             System.out.println("\nProduct List:");
             for (var p : productService.getAllProducts()) {
                 System.out.println(p);
             }
 
+            // Show menu options
             System.out.println("\nEnter: \n" +
                     "1. Update product\n" +
                     "2. Add new product\n" +
                     "3. Remove product\n" +
                     "9. End program");
+
             String input = scanner.nextLine();
 
             switch (input) {
                 case "1":
+                    // Update product
                     System.out.println("Enter product ID to update:");
                     Long updateId = Long.parseLong(scanner.nextLine());
 
@@ -50,32 +54,24 @@ public class Main {
                     break;
 
                 case "2":
+                    // Add new product
                     try {
                         System.out.println("Enter new product ID:");
                         Long id = Long.parseLong(scanner.nextLine());
 
                         System.out.println("Enter product name:");
                         String name = scanner.nextLine();
-                        if (name.isBlank()){
+                        if (name.isBlank()) {
                             name = "Empty";
                         }
+
                         System.out.println("Enter product price:");
                         String priceInput = scanner.nextLine();
-                        BigDecimal price;
-                        if (priceInput.isBlank()) {
-                            price = BigDecimal.ZERO;
-                        } else {
-                            price = new BigDecimal(priceInput);
-                        }
+                        BigDecimal price = priceInput.isBlank() ? BigDecimal.ZERO : new BigDecimal(priceInput);
 
                         System.out.println("Enter product taxrate:");
                         String taxRateInput = scanner.nextLine();
-                        BigDecimal taxRate;
-                        if (taxRateInput.isBlank()) {
-                            taxRate = BigDecimal.ZERO;
-                        } else {
-                            taxRate = new BigDecimal(taxRateInput);
-                        }
+                        BigDecimal taxRate = taxRateInput.isBlank() ? BigDecimal.ZERO : new BigDecimal(taxRateInput);
 
                         productService.addProduct(id, name, price, taxRate);
 
@@ -84,8 +80,8 @@ public class Main {
                     }
                     break;
 
-
                 case "3":
+                    // Remove product
                     System.out.println("Enter product ID to remove:");
                     Long removeId = Long.parseLong(scanner.nextLine());
 
@@ -94,6 +90,7 @@ public class Main {
                     break;
 
                 case "9":
+                    // Exit program
                     whileRunning = false;
                     break;
 
@@ -102,6 +99,7 @@ public class Main {
             }
         }
 
+        // Program ended
         System.out.println("Program ended. Week 1 test completed.");
         scanner.close();
     }
