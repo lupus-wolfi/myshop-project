@@ -4,29 +4,16 @@ import java.math.BigDecimal;
 
 public class Product {
 
-    // Product attributes
     private Long id;
     private String name;
     private BigDecimal price;
     private BigDecimal taxRate;
 
-    // Empty constructor for frameworks
+    // No-args constructor (for frameworks)
     protected Product() {
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Product product)) return false;
-        return id != null && id.equals(product.getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return id != null ? id.hashCode() : 0;
-    }
-
-    // Private constructor used only by the Builder
+    // Private constructor used by the builder
     private Product(Long id, String name, BigDecimal price, BigDecimal taxRate) {
         this.id = id;
         this.name = name;
@@ -34,12 +21,12 @@ public class Product {
         this.taxRate = taxRate;
     }
 
-    // Factory method to initiate the Builder
+    // Creates a new builder instance
     public static Builder builder() {
         return new Builder();
     }
 
-    // Static inner Builder class
+    // Builder class to construct Product objects with validation
     public static class Builder {
         private Long id;
         private String name;
@@ -66,12 +53,25 @@ public class Product {
             return this;
         }
 
+        // Validates input and builds the Product
         public Product build() {
+            if (id == null || id <= 0) {
+                throw new IllegalArgumentException("ID must be positive and not null");
+            }
+            if (name == null || name.trim().isEmpty()) {
+                throw new IllegalArgumentException("Name must not be empty");
+            }
+            if (price == null || price.compareTo(BigDecimal.ZERO) < 0) {
+                throw new IllegalArgumentException("Price must be zero or positive");
+            }
+            if (taxRate == null || taxRate.compareTo(BigDecimal.ZERO) < 0 || taxRate.compareTo(BigDecimal.ONE) > 0) {
+                throw new IllegalArgumentException("Tax rate must be between 0 and 1");
+            }
             return new Product(id, name, price, taxRate);
         }
     }
 
-    // Getter methods
+    // Getters
     public Long getId() {
         return id;
     }
@@ -88,7 +88,7 @@ public class Product {
         return taxRate;
     }
 
-    // Setter methods
+    // Setters
     public void setId(Long id) {
         this.id = id;
     }
@@ -105,7 +105,21 @@ public class Product {
         this.taxRate = taxRate;
     }
 
-    // toString() method for text representation
+    // Equals based on ID
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Product product)) return false;
+        return id != null && id.equals(product.getId());
+    }
+
+    // HashCode based on ID
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
+
+    // String representation of Product
     @Override
     public String toString() {
         return "Product{" +
