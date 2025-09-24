@@ -2,7 +2,7 @@ package com.myshop;
 // Week 1-12: Test all modules in console
 // Create products, add to cart, make orders, simulate payment, generate reports
 
-import com.myshop.console.Product;
+import com.myshop.domain.Product;
 import java.math.BigDecimal;
 import java.util.Scanner;
 

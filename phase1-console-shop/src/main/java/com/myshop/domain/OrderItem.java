@@ -1,4 +1,4 @@
-package com.myshop.console;
+package com.myshop.domain;
 
 public class OrderItem {
 
